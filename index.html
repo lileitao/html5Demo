@@ -20,10 +20,13 @@
 
             
             setupWebViewJavascriptBridge(function(bridge) {
-                 bridge.registerHandler('testJSFunction', function(data, responseCallback) {
-                    alert('JS方法被调用:'+data);
-                    responseCallback('js执行过了');
-                 })
+                bridge.registerHandler('JS Echo', function(data, responseCallback) {
+                    console.log("JS Echo called with:", data)
+                    responseCallback(data)
+                })
+                bridge.callHandler('ObjC Echo', {'key':'value'}, function responseCallback(responseData) {
+                    console.log("JS received response:", responseData)
+                })            
             })
 
             function scanClick() {

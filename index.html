@@ -16,42 +16,22 @@
                 setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
             }
 
-            setupWebViewJavascriptBridge(function(bridge) {
-
-                // bridge.registerHandler('JS Echo', function(data, responseCallback) {
-                //     console.log("JS Echo called with:", data)
-                //     responseCallback(data)
-                // })
-                
-                var params = {'title':'李磊涛title',
-                              'content':'测试内容',
-                              'url':'http://www.baidu.com'
-                          };
-
-                bridge.callHandler('ObjC Echo', params, function responseCallback(responseData) {
-                    console.log("objc Echo 的回调");
-                    console.log("JS received response:", responseData);
-                })
-
-                
-
-            })
 
 
             
-            // setupWebViewJavascriptBridge(function(bridge) {
-            //      bridge.registerHandler('testJSFunction', function(data, responseCallback) {
-            //         alert('JS方法被调用:'+data);
-            //         responseCallback('js执行过了');
-            //      })
-            // })
+            setupWebViewJavascriptBridge(function(bridge) {
+                 bridge.registerHandler('testJSFunction', function(data, responseCallback) {
+                    alert('JS方法被调用:'+data);
+                    responseCallback('js执行过了');
+                 })
+            })
 
-            // function scanClick() {
-            //     WebViewJavascriptBridge.callHandler('scanClick', {'foo': 'bar'}, function(response) {
-            //         alert('扫描结果:' + response);
-            //         document.getElementById("returnValue").value = response;
-            //     })
-            // }
+            function scanClick() {
+                WebViewJavascriptBridge.callHandler('scanClick', {'foo': 'bar'}, function(response) {
+                    alert('扫描结果:' + response);
+                    document.getElementById("returnValue").value = response;
+                })
+            }
             
             // function shareClick() {
             //     var params = {'title':'测试分享的标题','content':'测试分享的内容','url':'http://www.baidu.com'};
@@ -102,8 +82,15 @@
             </head>
     
     <body>
+
+
+
         <h1>这是按钮调用</h1>
         <input id = 'scanBtn' type="button" value="button——button" onclick="scanClick()"/>
+
+
+
+
       <!--   <input id = 'locationBtn' type="button" value="获取定位" onclick="locationClick()" />
         <input id = 'colorBtn' type="button" value="修改背景色" onclick="colorClick()" />
         <input id = 'shareBtn' type="button" value="分享" onclick="shareClick()" />

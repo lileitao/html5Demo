@@ -2,6 +2,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf8">
             <script language="javascript">
+
+
+
             function setupWebViewJavascriptBridge(callback) {
                 if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
                 if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
@@ -12,64 +15,87 @@
                 document.documentElement.appendChild(WVJBIframe);
                 setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
             }
-            
+
             setupWebViewJavascriptBridge(function(bridge) {
-                 bridge.registerHandler('testJSFunction', function(data, responseCallback) {
-                    alert('JS方法被调用:'+data);
-                    responseCallback('js执行过了');
-                 })
+
+                // bridge.registerHandler('JS Echo', function(data, responseCallback) {
+                //     console.log("JS Echo called with:", data)
+                //     responseCallback(data)
+                // })
+                
+                var params = {'title':'李磊涛title',
+                              'content':'测试内容',
+                              'url':'http://www.baidu.com'
+                          };
+
+                bridge.callHandler('ObjC Echo', params, function responseCallback(responseData) {
+                    console.log("objc Echo 的回调");
+                    console.log("JS received response:", responseData);
+                })
+
+                
+
             })
 
-            function scanClick() {
-                WebViewJavascriptBridge.callHandler('scanClick', {'foo': 'bar'}, function(response) {
-                    alert('扫描结果:' + response);
-                    document.getElementById("returnValue").value = response;
-                })
-            }
-            
-            function shareClick() {
-                var params = {'title':'测试分享的标题','content':'测试分享的内容','url':'http://www.baidu.com'};
-                WebViewJavascriptBridge.callHandler('shareClick',params,function(response) {
-                     alert(response);
-                    document.getElementById("returnValue").value = response;
-                 });
-            }
-            
-            function locationClick() {
-                WebViewJavascriptBridge.callHandler('locationClick',null,function(response) {
-                    alert(response);
-                    document.getElementById("returnValue").value = response;
-                });
-            }
-            
-            function colorClick() {
-                var params = {'r':67,'g':20,'b':128,'a':0.5};
-                WebViewJavascriptBridge.callHandler('colorClick',params);
-            }
-            
-            function payClick() {
-                var params = {'order_no':'201511120981234','channel':'wx','amount':1,'subject':'粉色外套'};
-                WebViewJavascriptBridge.callHandler('payClick',params,function(response) {
-                    alert(response);
-                    document.getElementById("returnValue").value = response;
-                });
-            }
 
-            function shake() {
-                WebViewJavascriptBridge.callHandler('shakeClick');
-            }
             
-            function goBack() {
-                WebViewJavascriptBridge.callHandler('goback');
-            }
+            // setupWebViewJavascriptBridge(function(bridge) {
+            //      bridge.registerHandler('testJSFunction', function(data, responseCallback) {
+            //         alert('JS方法被调用:'+data);
+            //         responseCallback('js执行过了');
+            //      })
+            // })
+
+            // function scanClick() {
+            //     WebViewJavascriptBridge.callHandler('scanClick', {'foo': 'bar'}, function(response) {
+            //         alert('扫描结果:' + response);
+            //         document.getElementById("returnValue").value = response;
+            //     })
+            // }
+            
+            // function shareClick() {
+            //     var params = {'title':'测试分享的标题','content':'测试分享的内容','url':'http://www.baidu.com'};
+            //     WebViewJavascriptBridge.callHandler('shareClick',params,function(response) {
+            //          alert(response);
+            //         document.getElementById("returnValue").value = response;
+            //      });
+            // }
+            
+            // function locationClick() {
+            //     WebViewJavascriptBridge.callHandler('locationClick',null,function(response) {
+            //         alert(response);
+            //         document.getElementById("returnValue").value = response;
+            //     });
+            // }
+            
+            // function colorClick() {
+            //     var params = {'r':67,'g':20,'b':128,'a':0.5};
+            //     WebViewJavascriptBridge.callHandler('colorClick',params);
+            // }
+            
+            // function payClick() {
+            //     var params = {'order_no':'201511120981234','channel':'wx','amount':1,'subject':'粉色外套'};
+            //     WebViewJavascriptBridge.callHandler('payClick',params,function(response) {
+            //         alert(response);
+            //         document.getElementById("returnValue").value = response;
+            //     });
+            // }
+
+            // function shake() {
+            //     WebViewJavascriptBridge.callHandler('shakeClick');
+            // }
+            
+            // function goBack() {
+            //     WebViewJavascriptBridge.callHandler('goback');
+            // }
             
             
             
-            function asyncAlert(content) {
-                setTimeout(function(){
-                           alert(content);
-                           },1);
-            }
+            // function asyncAlert(content) {
+            //     setTimeout(function(){
+            //                alert(content);
+            //                },1);
+            // }
             
             
             </script>
@@ -77,15 +103,15 @@
     
     <body>
         <h1>这是按钮调用</h1>
-        <input id = 'scanBtn' type="button" value="扫一扫" onclick="scanClick()"/>
-        <input id = 'locationBtn' type="button" value="获取定位" onclick="locationClick()" />
+        <input id = 'scanBtn' type="button" value="button——button" onclick="scanClick()"/>
+      <!--   <input id = 'locationBtn' type="button" value="获取定位" onclick="locationClick()" />
         <input id = 'colorBtn' type="button" value="修改背景色" onclick="colorClick()" />
         <input id = 'shareBtn' type="button" value="分享" onclick="shareClick()" />
         <input id = 'payBtn' type="button" value="支付" onclick="payClick()" />
         <input id = 'shakeBtn' type="button" value="摇一摇" onclick="shake()" />
-        <input id = 'gobackBtn' type="button" value="返回" onclick="goBack()" />
+        <input id = 'gobackBtn' type="button" value="返回" onclick="goBack()" /> -->
         
-        <h1>这是文件上传</h1>
+      <!--   <h1>这是文件上传</h1>
 
         <input type="file" />
         
@@ -109,7 +135,7 @@
                 <td>555 77 855</td>
             </tr>
         </table>
-        
+ -->        
         
     </body>
 </html>

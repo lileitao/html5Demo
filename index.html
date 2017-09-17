@@ -20,11 +20,17 @@
 
             
             setupWebViewJavascriptBridge(function(bridge) {
-                bridge.registerHandler('JS Echo', function(data, responseCallback) {
-                    console.log("JS Echo called with:", data)
-                    responseCallback(data)
-                })
-                bridge.callHandler('ObjC Echo', {'key':'value'}, function responseCallback(responseData) {
+                // bridge.registerHandler('JS Echo', function(data, responseCallback) {
+                //     console.log("JS Echo called with:", data)
+                //     responseCallback(data)
+                // })
+
+                var paramters = {
+                    "title":"lileitao title";
+                    "conternt":"lileitao contents"
+                }
+
+                bridge.callHandler('ObjC Echo', paramters, function responseCallback(responseData) {
                     console.log("JS received response:", responseData)
                 })            
             })
